@@ -1,6 +1,4 @@
 import os
-import random
-
 from dotenv import load_dotenv
 import requests
 import pandas as pd
@@ -19,17 +17,18 @@ class DataManager:
         self.sheet_id = google_sheet_id
         self.sheet = self.client.open_by_key(self.sheet_id)
 
-    #Get Request
-    def get_data(self):
-        values_list = self.sheet.sheet1.get_values()
+    #Get Request-
+    def get_data(self, sheet_name = 'Sheet1'):
+        worksheet = self.sheet.worksheet(sheet_name)
+        values_list = worksheet.get_all_values()
         headers = values_list[0]
         rows = values_list[1:]
         df = pd.DataFrame(rows, columns=headers)
         return df
     #  Put Request
-    def update_data(self,dataframe, column_name):
+    def update_data(self,dataframe, column_name, sheet_name = 'Sheet1'):
+        worksheet = self.sheet.worksheet(sheet_name)
         dataframe[column_name] = dataframe[column_name]
         value_to_write = [dataframe.columns.tolist()] + dataframe.values.tolist()
-        worksheet = self.sheet.sheet1
         worksheet.clear()
         worksheet.update(values=value_to_write)
