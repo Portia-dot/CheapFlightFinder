@@ -52,9 +52,9 @@ try:
                 all_messages.append(message)
             except requests.exceptions.RequestException as e:
                 print('Handled Expected exception',e)
-    if all_messages:
-        full_message = '\n\n'.join(all_messages)
-        message_manager.send(full_message)
+    # if all_messages:
+    #     full_message = '\n\n'.join(all_messages)
+    #     message_manager.send(full_message)
 except Exception as e:
     print(e)
 

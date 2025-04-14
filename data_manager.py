@@ -1,17 +1,26 @@
+import os
+
 from dotenv import load_dotenv
 import requests
 import pandas as pd
+import gspread
+from google.oauth2.service_account import Credentials
+
+
 load_dotenv()
+google_sheet_id = os.getenv("GOOGLE_SHEET_ID")
+
 class DataManager:
     def __init__(self):
-        # self.sheety_endpoint = os.environ.get('SHEETY_GET_ENDPOINT')
-        # self.sheety_get_endpoint = os.environ.get('SHEETY_GET_ENDPOINT')
-        # self.data = self.get_data()
-        # self.headers = {
-        #     'Content-Type': 'application/json',
-        #     'Authorization': 'Basic' + os.environ.get('SHEETY_AUTH')
-        #
-        # }
+        self.scope = ['https://www.googleapis.com/auth/spreadsheets']
+        self.creds = Credentials.from_service_account_file('flight.json', scopes=self.scope)
+        self.client = gspread.authorize(self.creds)
+        self.sheet_id = google_sheet_id
+        self.sheet = self.client.open_by_key(self.sheet_id)
+
+        values_list = self.sheet.sheet1.row_values(1)
+        print(values_list)
+
 
         self.file = 'Flights - prices.csv'
         self.data = self.get_data()

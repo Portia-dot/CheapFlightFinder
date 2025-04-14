@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-import requests
 import os
 from twilio.rest import Client
 load_dotenv()
@@ -9,7 +8,10 @@ account_token = os.getenv("TWILIO_ACCOUNT_TOKEN")
 twilio_phone = os.getenv("TWILIO_PHONE_NUMBER")
 my_phone = os.getenv("MY_PHONE_NUMBER")
 
+
+
 class Message:
+    # This class is responsible for sending notifications with the deal flight details.
     def __init__(self):
         self.client = Client(account_sid, account_token)
 
@@ -20,4 +22,4 @@ class Message:
             to='+13062612371'
         )
 
-        print(message.sid)
+        print(msg.sid)
