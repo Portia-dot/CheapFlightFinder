@@ -54,7 +54,7 @@ try:
                 print('Handled Expected exception',e)
     if all_messages:
         full_message = '\n\n'.join(all_messages)
-        print(full_message)
+        message_manager.send(full_message)
 except Exception as e:
     print(e)
 
