@@ -4,6 +4,7 @@ import os
 from datetime import date, timedelta
 load_dotenv()
 
+
 class FlightSearch:
     #This class is responsible for talking to the Flight Search API.
     def __init__(self):
@@ -48,6 +49,7 @@ class FlightSearch:
         return data
 
     def get_flight_offer(self, destination_location_code, max_price):
+        """ Method Limitations// Can not be used for custormers """
         url = f'{self.Endpoint}/shopping/flight-dates'
         #60 DAYS date range
         today = date.today() + timedelta(days=1)
@@ -88,9 +90,4 @@ class FlightSearch:
                 else:
                     print(f'http error {e}')
         return None
-
-
-
-
-
 
